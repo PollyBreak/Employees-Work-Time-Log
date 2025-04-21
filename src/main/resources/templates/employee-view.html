@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Company Employees</title>
+  <style>
+    table, th, td {
+      border: 1px solid #888;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+    th {
+      background-color: #efefef;
+    }
+  </style>
+</head>
+<body>
+
+<h2 th:text="'Employees of ' + ${company.name}"></h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Position</th>
+    <th>Room</th>
+    <th>Phone</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="e : ${employees}">
+    <td th:text="${e.id}"></td>
+    <td th:text="${e.name}"></td>
+    <td th:text="${e.surname}"></td>
+    <td th:text="${e.position}"></td>
+    <td th:text="${e.room}"></td>
+    <td th:text="${e.phone}"></td>
+    <td th:text="${e.atWork ? 'AT WORK' : 'NOT AT WORK'}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

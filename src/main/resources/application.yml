@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/attendance_db
+    username: postgres
+    password: 222316pb
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

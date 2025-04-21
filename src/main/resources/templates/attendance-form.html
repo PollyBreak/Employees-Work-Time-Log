@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance Check</title>
+</head>
+<body>
+<h2 th:text="'Company: ' + ${company.name}"></h2>
+
+<form action="/company/scan" method="post">
+    <input type="hidden" name="companyId" th:value="${scanRequest.companyId}"/>
+    <label for="mac">Enter your MAC address:</label>
+    <input type="text" id="mac" name="macAddress" th:value="${scanRequest.macAddress}" required>
+    <button type="submit">Submit</button>
+</form>
+
+<p th:if="${message}" style="color: green;" th:text="${message}"></p>
+<p th:if="${error}" style="color: red;" th:text="${error}"></p>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const macInput = document.querySelector('input[name="macAddress"]');
+        if (!macInput) return;
+
+        const savedMac = localStorage.getItem("macAddress");
+        if (savedMac) {
+            macInput.value = savedMac;
+            macInput.readOnly = true;
+        }
+
+        document.querySelector("form").addEventListener("submit", function () {
+            if (!savedMac && macInput.value) {
+                sessionStorage.setItem("pendingMacAddress", macInput.value);
+                localStorage.setItem("macAddress", macInput.value);
+                macInput.readOnly = true; // 👈 сразу заблокировать
+            }
+        });
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const error = document.querySelector("p[style*='red']");
+        if (!error) {
+            const pending = sessionStorage.getItem("pendingMacAddress");
+            if (pending) {
+                localStorage.setItem("macAddress", pending);
+                sessionStorage.removeItem("pendingMacAddress");
+            }
+        } else {
+            sessionStorage.removeItem("pendingMacAddress");
+        }
+    });
+</script>
+
+
+</body>
+
+</html>
