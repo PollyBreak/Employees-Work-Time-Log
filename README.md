@@ -56,6 +56,8 @@ mvn spring-boot:run
 
 ## 📚 API и интерфейсы
 
+---
+
 ### 👥 Регистрация
 
 | Метод | URL             | Описание               |
@@ -63,7 +65,7 @@ mvn spring-boot:run
 | POST  | `/api/company`   | Создать компанию       |
 | POST  | `/api/employee`  | Добавить сотрудника    |
 
-#### Пример: POST `/api/company`
+#### 📥 Пример запроса `/api/company`
 
 ```json
 {
@@ -71,7 +73,18 @@ mvn spring-boot:run
 }
 ```
 
-#### Пример: POST `/api/employee`
+#### 📤 Пример ответа
+
+```json
+{
+  "id": 1,
+  "name": "Smart lab"
+}
+```
+
+---
+
+#### 📥 Пример запроса `/api/employee`
 
 ```json
 {
@@ -85,6 +98,19 @@ mvn spring-boot:run
 }
 ```
 
+#### 📤 Пример ответа
+
+```json
+{
+  "id": 2,
+  "name": "Alice",
+  "surname": "Johnson",
+  "position": "Backend Developer",
+  "room": "1.1.133",
+  "phone": "+77771234567"
+}
+```
+
 ---
 
 ### 🕘 Отметка присутствия
@@ -94,7 +120,31 @@ mvn spring-boot:run
 | GET   | `/company/{id}/attendance` | HTML-форма для отметки MAC          |
 | POST  | `/company/scan`            | Зафиксировать приход или уход       |
 
-📌 MAC сохраняется в `localStorage` и становится нередактируемым.
+#### 🧍 Пример HTML-интерфейса
+
+```html
+<form action="/company/scan" method="post">
+  <input type="hidden" name="companyId" value="1"/>
+  <input type="text" name="macAddress"/>
+  <button type="submit">Submit</button>
+</form>
+```
+
+#### 📥 Пример запроса `/company/scan`
+
+```
+companyId=1
+macAddress=AA:BB:CC:11:22:33
+```
+
+#### 📤 Пример ответа (HTML)
+
+- 🟢 `Вы успешно отметились!`
+- 🔴 `Вы ушли с работы!`
+
+#### 🖼️ Внешний вид
+
+![attendance-form](img/attendance-form.png)
 
 ---
 
@@ -105,6 +155,21 @@ mvn spring-boot:run
 | GET   | `/company/{id}/business-trip`      | HTML-форма для командировки      |
 | POST  | `/company/{id}/business-trip`      | Отметка командировки (раз в день)|
 
+#### 📥 Пример запроса `/company/{id}/business-trip`
+
+```
+macAddress=AA:BB:CC:11:22:33
+```
+
+#### 📤 Пример ответа (HTML)
+
+- 🟢 `Командировка учтена!`
+- 🔴 `Сотрудник не найден`
+
+#### 🖼️ Внешний вид
+
+![business-trip-form](img/business-trip-form.png)
+
 ---
 
 ### 📅 Табель учёта
@@ -114,8 +179,27 @@ mvn spring-boot:run
 | GET   | `/api/company/{id}/timesheet?year=2025&month=4`           | Excel-файл |
 | GET   | `/api/company/{id}/timesheet/json?year=2025&month=4`      | JSON       |
 
-#### Пример: GET `/api/company/1/timesheet/json?year=2025&month=4`
+#### 📤 Пример ответа (JSON)
 
+```json
+[
+  {
+    "employeeId": 1,
+    "name": "Polina",
+    "surname": "Batova",
+    "position": "QA",
+    "room": "1.1.105",
+    "workedHoursPerDay": {
+      "2025-04-17": "PT7H58M0S"
+    },
+    "totalWorked": "PT7H58M0S"
+  }
+]
+```
+
+#### 🖼️ Excel-табель
+
+![timesheet-excel](img/timesheet.png)
 
 ---
 
@@ -126,8 +210,30 @@ mvn spring-boot:run
 | GET   | `/api/employee/{id}/attendance?range=week`       | История одного сотрудника         |
 | GET   | `/api/company/{id}/attendance?range=month`       | История по всем сотрудникам       |
 
-#### Пример: GET `/api/company/1/attendance?range=month`
+#### 📥 Пример запроса
 
+```
+GET /api/employee/1/attendance?range=week
+```
+
+#### 📤 Пример ответа
+
+```json
+[
+  {
+    "employeeId": 1,
+    "employeeName": "Polina Batova",
+    "atWork": true,
+    "timestamp": "2025-04-17T09:00:00"
+  },
+  {
+    "employeeId": 1,
+    "employeeName": "Polina Batova",
+    "atWork": false,
+    "timestamp": "2025-04-17T17:45:00"
+  }
+]
+```
 
 ---
 
@@ -137,47 +243,19 @@ mvn spring-boot:run
 |-------|------------------------------------|------------------------------------------|
 | GET   | `/api/company/{id}/employees/view` | HTML-таблица статуса сотрудников         |
 
----
+#### 📤 HTML-пример интерфейса
 
-## 🖼️ Скриншоты
-
-> Загрузите картинки в папку `img/` вашего репозитория и замените `PLACEHOLDER` на имя файла.
-
-### 🧍 Отметка прихода/ухода
-
-![attendance-form](img/attendance-form.png) <!-- PLACEHOLDER -->
-
----
-
-### ✈️ Отметка командировки
-
-![business-trip-form](img/business-trip-form.png) <!-- PLACEHOLDER -->
-
----
-
-### 📄 Табель Excel
-
-![timesheet-excel](img/timesheet.png) <!-- PLACEHOLDER -->
-
----
-
-### 👀 Онлайн статус сотрудников
-
-![employee-status-view](img/status-view.png) <!-- PLACEHOLDER -->
-
----
-
-## 📁 Структура проекта
-
-```
-src/
-├── controller/      # Контроллеры API и страниц
-├── service/         # Бизнес-логика
-├── repository/      # Репозитории JPA
-├── entity/          # JPA-сущности
-├── dto/             # Запросы и ответы
-├── templates/       # HTML-страницы (Thymeleaf)
-└── resources/       # Настройки, стили и шаблоны
+```html
+<table>
+  <tr>
+    <th>ФИО</th><th>Должность</th><th>Кабинет</th><th>Статус</th>
+  </tr>
+  <tr>
+    <td>Alice Johnson</td><td>Backend Developer</td><td>1.1.133</td><td>🟢</td>
+  </tr>
+</table>
 ```
 
 ---
+
+
