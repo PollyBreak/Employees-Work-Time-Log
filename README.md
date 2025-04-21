@@ -41,7 +41,7 @@
 
 ```bash
 git clone https://github.com/PollyBreak/Employees-Work-Time-Log.git
-cd attendance-service
+cd Employees-Work-Time-Log
 
 # Сборка
 mvn clean install
@@ -63,6 +63,14 @@ mvn spring-boot:run
 | POST  | `/api/company`   | Создать компанию       |
 | POST  | `/api/employee`  | Добавить сотрудника    |
 
+#### Пример: POST `/api/company`
+
+```json
+{
+  "name": "Smart lab"
+}
+```
+
 #### Пример: POST `/api/employee`
 
 ```json
@@ -72,7 +80,7 @@ mvn spring-boot:run
   "macAddress": "AA:BB:CC:11:22:33",
   "position": "Backend Developer",
   "room": "1.1.133",
-  "phone": "+7 (777) 123-45-67",
+  "phone": "+77771234567",
   "companyId": 1
 }
 ```
@@ -106,6 +114,9 @@ mvn spring-boot:run
 | GET   | `/api/company/{id}/timesheet?year=2025&month=4`           | Excel-файл |
 | GET   | `/api/company/{id}/timesheet/json?year=2025&month=4`      | JSON       |
 
+#### Пример: GET `/api/company/1/timesheet/json?year=2025&month=4`
+
+
 ---
 
 ### 📆 История посещений
@@ -114,6 +125,9 @@ mvn spring-boot:run
 |-------|--------------------------------------------------|-----------------------------------|
 | GET   | `/api/employee/{id}/attendance?range=week`       | История одного сотрудника         |
 | GET   | `/api/company/{id}/attendance?range=month`       | История по всем сотрудникам       |
+
+#### Пример: GET `/api/company/1/attendance?range=month`
+
 
 ---
 
