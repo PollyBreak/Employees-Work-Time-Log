@@ -23,36 +23,6 @@
 
 ---
 
-## 📦 Технологии
-
-| Технология       | Версия       |
-|------------------|--------------|
-| Java             | 17           |
-| Spring Boot      | 3.4.4        |
-| PostgreSQL       | 15+          |
-| Spring Data JPA  | ✅           |
-| Thymeleaf        | ✅           |
-| Apache POI       | 5.2.3        |
-| Lombok           | 1.18.36      |
-
----
-
-## 🚀 Сборка и запуск
-
-```bash
-git clone https://github.com/PollyBreak/Employees-Work-Time-Log.git
-cd Employees-Work-Time-Log
-
-# Сборка
-mvn clean install
-
-# Запуск
-mvn spring-boot:run
-```
-
-📍 После запуска: [http://localhost:8080](http://localhost:8080)
-
----
 
 ## 📚 API и интерфейсы
 
@@ -256,4 +226,27 @@ GET /api/employee/1/attendance?range=week
 
 ---
 
+## 🚀 Сборка и запуск
 
+⚠️ **Перед запуском** отредактируйте `src/main/resources/application.properties` и укажите свои данные для подключения к PostgreSQL:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/attendance_db
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+```
+
+```bash
+git clone https://github.com/PollyBreak/Employees-Work-Time-Log.git
+cd Employees-Work-Time-Log
+
+# Сборка
+mvn clean install
+
+# Запуск
+mvn spring-boot:run
+```
+
+📍 После запуска: [http://localhost:8080](http://localhost:8080)
+
+---
