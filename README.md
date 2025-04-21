@@ -40,7 +40,7 @@
 ## 🚀 Сборка и запуск
 
 ```bash
-git clone https://github.com/your-username/attendance-service.git
+git clone https://github.com/PollyBreak/Employees-Work-Time-Log.git
 cd attendance-service
 
 # Сборка
