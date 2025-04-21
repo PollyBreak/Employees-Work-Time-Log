@@ -129,6 +129,8 @@ mvn spring-boot:run
   <button type="submit">Submit</button>
 </form>
 ```
+![image](https://github.com/user-attachments/assets/d664a594-3a9d-4c97-819a-8694784a05b8)
+
 
 #### 📥 Пример запроса `/company/scan`
 
@@ -144,7 +146,8 @@ macAddress=AA:BB:CC:11:22:33
 
 #### 🖼️ Внешний вид
 
-![attendance-form](img/attendance-form.png)
+![image](https://github.com/user-attachments/assets/955ab8b5-c06d-43da-be4d-a251d4f4f727)
+
 
 ---
 
@@ -168,7 +171,10 @@ macAddress=AA:BB:CC:11:22:33
 
 #### 🖼️ Внешний вид
 
-![business-trip-form](img/business-trip-form.png)
+По бизнес-логике, во время командировки достаточно отметиться 1 раз в день, и тогда за этот день засчитается 8 рабочих часов и в табеле будет указано "К".
+
+![image](https://github.com/user-attachments/assets/72fd498f-1c49-4eb1-b2ad-f74e7a5fd036)
+
 
 ---
 
@@ -199,7 +205,8 @@ macAddress=AA:BB:CC:11:22:33
 
 #### 🖼️ Excel-табель
 
-![timesheet-excel](img/timesheet.png)
+![image](https://github.com/user-attachments/assets/457b12db-435a-4e4d-baef-7b6376b73553)
+
 
 ---
 
@@ -243,18 +250,9 @@ GET /api/employee/1/attendance?range=week
 |-------|------------------------------------|------------------------------------------|
 | GET   | `/api/company/{id}/employees/view` | HTML-таблица статуса сотрудников         |
 
-#### 📤 HTML-пример интерфейса
+#### 🖼️ Внешний вид
 
-```html
-<table>
-  <tr>
-    <th>ФИО</th><th>Должность</th><th>Кабинет</th><th>Статус</th>
-  </tr>
-  <tr>
-    <td>Alice Johnson</td><td>Backend Developer</td><td>1.1.133</td><td>🟢</td>
-  </tr>
-</table>
-```
+![image](https://github.com/user-attachments/assets/467642cc-975a-4cc0-b77b-6d0ae28e74ef)
 
 ---
 
