@@ -44,7 +44,7 @@ public class AttendanceService {
         attendance.setTimestamp(LocalDateTime.now());
         attendanceRepo.save(attendance);
 
-        return newStatus ? "Welcome, you're now AT WORK!" : "You have LEFT WORK!";
+        return newStatus ? "Вы успешно отметились!" : "Вы ушли с работы!";
     }
 
 

@@ -30,25 +30,30 @@
         document.querySelector("form").addEventListener("submit", function () {
             if (!savedMac && macInput.value) {
                 sessionStorage.setItem("pendingMacAddress", macInput.value);
-                localStorage.setItem("macAddress", macInput.value);
-                macInput.readOnly = true; // 👈 сразу заблокировать
             }
         });
     });
 
     window.addEventListener("DOMContentLoaded", () => {
         const error = document.querySelector("p[style*='red']");
-        if (!error) {
-            const pending = sessionStorage.getItem("pendingMacAddress");
-            if (pending) {
-                localStorage.setItem("macAddress", pending);
-                sessionStorage.removeItem("pendingMacAddress");
+        const pending = sessionStorage.getItem("pendingMacAddress");
+
+        if (error) {
+            sessionStorage.removeItem("pendingMacAddress");
+        } else if (pending) {
+            localStorage.setItem("macAddress", pending);
+
+            const macInput = document.querySelector('input[name="macAddress"]');
+            if (macInput) {
+                macInput.value = pending;
+                macInput.readOnly = true;
             }
-        } else {
+
             sessionStorage.removeItem("pendingMacAddress");
         }
     });
 </script>
+
 
 
 </body>

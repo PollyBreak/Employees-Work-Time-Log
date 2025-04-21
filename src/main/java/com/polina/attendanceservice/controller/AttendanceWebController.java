@@ -43,7 +43,7 @@ public class AttendanceWebController {
         model.addAttribute("scanRequest", scanRequest);
 
         if (result == null) {
-            model.addAttribute("error", "This MAC is not registered under this company. Please check your input.");
+            model.addAttribute("error", "Этот MAC-адрес не зарегистрирован в этой компании. Проверьте введенные данные.");
         } else {
             model.addAttribute("message", result);
         }
