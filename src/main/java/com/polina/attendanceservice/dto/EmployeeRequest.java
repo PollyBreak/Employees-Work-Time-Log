@@ -6,7 +6,7 @@ import lombok.Data;
 public class EmployeeRequest {
     private String name;
     private String surname;
-    private String macAddress;
+    private String email;
     private Long companyId;
 
     private String phone;

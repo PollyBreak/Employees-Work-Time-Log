@@ -14,7 +14,7 @@ public class Employee {
     private String surname;
 
     @Column(unique = true, nullable = false)
-    private String macAddress;
+    private String email;
     private String phone;
     private String room;
     private String position;

@@ -26,8 +26,8 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepo;
     private final CompanyRepository companyRepository;
 
-    public String processScan(Long companyId, String macAddress) {
-        Optional<Employee> optionalEmployee = employeeRepo.findByMacAddress(macAddress)
+    public String processScan(Long companyId, String email) {
+        Optional<Employee> optionalEmployee = employeeRepo.findByEmail(email)
                 .filter(e -> e.getCompany().getId().equals(companyId));
 
         if (optionalEmployee.isEmpty()) {
@@ -48,15 +48,6 @@ public class AttendanceService {
     }
 
 
-
-
-    public Boolean checkEmployeeStatus(Long employeeId) {
-        Employee emp = employeeRepo.findById(employeeId)
-                .orElseThrow(() -> NotFoundException.forEntity("Employee", employeeId));
-        return attendanceRepo.findTopByEmployeeOrderByTimestampDesc(emp)
-                .map(Attendance::isAtWork)
-                .orElse(false);
-    }
 
     public List<AttendanceRecordResponse> getEmployeeAttendance(Long employeeId, RangeType range) {
         Employee employee = employeeRepo.findById(employeeId)

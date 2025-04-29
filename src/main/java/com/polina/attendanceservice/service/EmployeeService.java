@@ -20,14 +20,14 @@ public class EmployeeService {
     public Employee registerEmployee(EmployeeRequest request) {
         Company company = companyRepo.findById(request.getCompanyId())
                 .orElseThrow(() -> NotFoundException.forEntity("Company", request.getCompanyId()));
-        employeeRepo.findByMacAddress(request.getMacAddress()).ifPresent(e -> {
-            throw new NotFoundException("MAC address " + request.getMacAddress() + " is already in use by employee ID " + e.getId());
+        employeeRepo.findByEmail(request.getEmail()).ifPresent(e -> {
+            throw new NotFoundException("Email " + request.getEmail() + " is already in use by employee ID " + e.getId());
         });
 
         Employee employee = new Employee();
         employee.setName(request.getName());
         employee.setSurname(request.getSurname());
-        employee.setMacAddress(request.getMacAddress());
+        employee.setEmail(request.getEmail());
         employee.setPhone(request.getPhone());
         employee.setRoom(request.getRoom());
         employee.setPosition(request.getPosition());

@@ -34,7 +34,7 @@ public class AttendanceWebController {
 
     @PostMapping("/company/scan")
     public String handleForm(@ModelAttribute ScanRequest scanRequest, Model model) {
-        String result = attendanceService.processScan(scanRequest.getCompanyId(), scanRequest.getMacAddress());
+        String result = attendanceService.processScan(scanRequest.getCompanyId(), scanRequest.getEmail());
 
         Company company = companyRepo.findById(scanRequest.getCompanyId())
                 .orElseThrow(() -> new RuntimeException("Company not found"));
@@ -43,7 +43,7 @@ public class AttendanceWebController {
         model.addAttribute("scanRequest", scanRequest);
 
         if (result == null) {
-            model.addAttribute("error", "Этот MAC-адрес не зарегистрирован в этой компании. Проверьте введенные данные.");
+            model.addAttribute("error", "Этот email не зарегистрирован в этой компании. Проверьте введенные данные.");
         } else {
             model.addAttribute("message", result);
         }

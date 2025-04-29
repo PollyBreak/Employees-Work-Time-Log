@@ -43,17 +43,14 @@ public class TimesheetService {
         LocalDate start = month.atDay(1);
         LocalDate end = month.atEndOfMonth();
 
-        // Командировки
         List<BusinessTrip> trips = businessTripRepo.findByEmployeeAndDateBetween(employee, start, end);
         Set<LocalDate> tripDates = trips.stream()
                 .map(BusinessTrip::getDate)
                 .collect(Collectors.toSet());
 
-        // Посещения
         List<Attendance> attendances = attendanceRepo
                 .findByEmployeeAndTimestampBetweenOrderByTimestamp(employee, start.atStartOfDay(), end.plusDays(1).atStartOfDay());
 
-        // Группировка по дням
         Map<LocalDate, List<Attendance>> byDate = attendances.stream()
                 .collect(Collectors.groupingBy(
                         a -> a.getTimestamp().toLocalDate(),
@@ -68,7 +65,7 @@ public class TimesheetService {
             Duration totalDay = Duration.ZERO;
 
             if (tripDates.contains(date)) {
-                totalDay = Duration.ofHours(8); // Командировка
+                totalDay = Duration.ofHours(8);
             } else {
                 List<Attendance> records = new ArrayList<>(byDate.getOrDefault(date, List.of()));
                 records.sort(Comparator.comparing(Attendance::getTimestamp));

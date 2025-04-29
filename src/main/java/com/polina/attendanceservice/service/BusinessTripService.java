@@ -16,8 +16,8 @@ public class BusinessTripService {
     private final EmployeeRepository employeeRepo;
     private final BusinessTripRepository tripRepo;
 
-    public void registerTrip(Long companyId, String mac) {
-        Employee employee = employeeRepo.findByMacAddress(mac)
+    public void registerTrip(Long companyId, String email) {
+        Employee employee = employeeRepo.findByEmail(email)
                 .filter(e -> e.getCompany().getId().equals(companyId))
                 .orElseThrow(() -> new RuntimeException("MAC не найден в компании"));
 

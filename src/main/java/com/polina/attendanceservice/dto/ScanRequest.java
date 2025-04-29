@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ScanRequest {
     private Long companyId;
-    private String macAddress;
+    private String email;
 }
