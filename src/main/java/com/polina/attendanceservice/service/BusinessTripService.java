@@ -19,7 +19,7 @@ public class BusinessTripService {
     public void registerTrip(Long companyId, String email) {
         Employee employee = employeeRepo.findByEmail(email)
                 .filter(e -> e.getCompany().getId().equals(companyId))
-                .orElseThrow(() -> new RuntimeException("MAC не найден в компании"));
+                .orElseThrow(() -> new RuntimeException("Email не найден в компании"));
 
         LocalDate today = LocalDate.now();
         if (tripRepo.existsByEmployeeAndDate(employee, today)) {

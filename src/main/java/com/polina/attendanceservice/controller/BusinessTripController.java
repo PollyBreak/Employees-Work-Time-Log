@@ -22,9 +22,9 @@ public class BusinessTripController {
     }
 
     @PostMapping
-    public String handleTripSubmit(@PathVariable Long companyId, @RequestParam String macAddress, Model model) {
+    public String handleTripSubmit(@PathVariable Long companyId, @RequestParam String email, Model model) {
         try {
-            tripService.registerTrip(companyId, macAddress);
+            tripService.registerTrip(companyId, email);
             model.addAttribute("success", true);
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
